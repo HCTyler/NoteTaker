@@ -1,7 +1,7 @@
 const util= require("util")
 const fs= require("fs")
 const uuid = require("uuid/v1");
-//test
+
 const readAsynch= util.promisify(fs.readFile)
 const writeAsynch= util.promisify(fs.writeFile)
 
@@ -9,8 +9,8 @@ class Save {
     read(){
         return readAsynch("db/db.json","utf8")
     }
-    write(note) {
-        return writeAsynch("db/db.json",JSON.stringify(note))
+    write(notes) {
+        return writeAsynch("db/db.json",JSON.stringify(notes))
     }
     readNotes(){
         return this.read().then((notes)=>{
@@ -25,10 +25,11 @@ class Save {
     }
     createNote(note){
         const { title, text }=  note
+
         if(!title || !text ) {
-            throw new Error("Title and text cannot be blank")
-        }
+            throw new Error("Title and text cannot be blank")}
         const newNote= { title, text, id: uuid() }
+
         return this.readNotes()
             .then((notes) => [... notes, newNote])
             .then((updateNotes)=> this.write(updateNotes))
@@ -42,4 +43,3 @@ class Save {
     }
 }
 module.exports= new Save()
-// module.exports = uuid

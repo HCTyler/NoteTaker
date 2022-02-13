@@ -11,7 +11,7 @@ router.get("/notes",(req,res)=>{
 
 router.post("/notes",(req,res)=> {
     save.createNote(req.body)
-    .then((note)=> res.json(note))
+    .then((notes)=> res.json(notes))
     .catch((err)=> res.status(500).json(err))
 })
 
