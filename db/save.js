@@ -1,7 +1,6 @@
 const util= require("util")
 const fs= require("fs")
-const uuidv1= require("uuid")
-const uuid= uuidv1.v4()
+const uuid = require("uuid/v1");
 
 const readAsynch= util.promisify(fs.readFile)
 const writeAsynch= util.promisify(fs.writeFile)
@@ -29,13 +28,9 @@ class Save {
         if(!title || !text ) {
             throw new Error("Title and text cannot be blank")
         }
-        const newNote= { 
-            title,
-            text,
-            id:uuid()
-        }
+        const newNote= { title, text, id: uuid() }
         return this.readNotes()
-            .then((notes) => [...notes,newNote])
+            .then((notes) => [... notes, newNote])
             .then((updateNotes)=> this.write(updateNotes))
             .then(()=> newNote)
     }
