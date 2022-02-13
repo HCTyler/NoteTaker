@@ -1,8 +1,9 @@
 const router= require ("express").Router()
-const save= require("../db/save")
+const store = require("../db/save")
+// const save= require("../db/store")
 
 router.get("/notes",(req,res)=>{
-    save
+    store
     .readNotes()
     .then((notes)=> {
         return res.json(notes)
@@ -10,15 +11,15 @@ router.get("/notes",(req,res)=>{
     .catch((err)=> res.status(500).json(err))
 })
 
-router.post("/notes", (req,res)=> {
-    save
+router.post("/notes",(req,res)=> {
+    store
     .createNote(req.body)
     .then((note)=> res.json(note))
     .catch((err)=> res.status(500).json(err))
 })
 
 router.delete("/notes/:id", (req,res)=> {
-    save
+    store
     .deleteNote(req.params.id)
     .then(()=> res.json({ ok:true }))
     .catch((err)=> res.status(500).json(err))

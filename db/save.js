@@ -1,7 +1,8 @@
 const util= require("util")
 const fs= require("fs")
+const uuidv1= require("uuid")
+const uuid= uuidv1.v4()
 
-const uuid= require("uuid/v1")
 const readAsynch= util.promisify(fs.readFile)
 const writeAsynch= util.promisify(fs.writeFile)
 
@@ -46,3 +47,4 @@ class Save {
     }
 }
 module.exports= new Save()
+// module.exports = uuid
