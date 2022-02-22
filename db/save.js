@@ -14,6 +14,7 @@ class Save {
     }
     readNotes(){
         return this.read().then((notes)=>{
+            
             let localNotes
             try {
                 localNotes= [].concat(JSON.parse(notes))
@@ -27,7 +28,8 @@ class Save {
         const { title, text }=  note
 
         if(!title || !text ) {
-            throw new Error("Title and text cannot be blank")}
+            throw new Error("Title and text cannot be blank")
+        }
         const newNote= { title, text, id: uuid() }
 
         return this.readNotes()
