@@ -12,7 +12,7 @@ class Save {
     write(notes) {
         return writeAsynch("db/db.json",JSON.stringify(notes))
     }
-    readNotes(){
+    getNotes(){
         return this.read().then((notes)=>{
             
             let localNotes
@@ -25,20 +25,25 @@ class Save {
         })
     }
     createNote(note){
-        const { title, text }=  note
+        const { title, text }=  note;
+        console.log("it is making a note")
+        console.log(note)
 
         if(!title || !text ) {
             throw new Error("Title and text cannot be blank")
         }
         const newNote= { title, text, id: uuid() }
-
-        return this.readNotes()
-            .then((notes) => [... notes, newNote])
+        console.log(newNote)
+        return this.getNotes()
+            .then((note) => [... note, newNote])
+            .then(console.log(note))
             .then((updateNotes)=> this.write(updateNotes))
+            .then(console.log(updateNotes))
             .then(()=> newNote)
+            .then(console.log(newNote))
     }
     deleteNote(id){
-        return this.readNotes()
+        return this.getNotes()
             .then((notes)=> notes.filter((note)=> note.id !==id))
             .then((noNotes)=> this.write(noNotes))
 
