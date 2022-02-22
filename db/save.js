@@ -36,9 +36,7 @@ class Save {
         console.log(newNote)
         return this.getNotes()
             .then((note) => [... note, newNote])
-            .then(console.log(note))
             .then((updateNotes)=> this.write(updateNotes))
-            .then(console.log(updateNotes))
             .then(()=> newNote)
             .then(console.log(newNote))
     }
